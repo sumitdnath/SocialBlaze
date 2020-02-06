@@ -58,11 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    private void SendUserToLoginActivity() {
 
-        Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(loginIntent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -87,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_settings_option){
 
 
+        SendUserToSettingsActivity();
+
         }
         if (item.getItemId() == R.id.main_find_friends_option){
 
@@ -95,5 +93,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         return  true;
+    }
+
+    private void SendUserToLoginActivity() {
+
+        Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(loginIntent);
+    }
+
+    private void SendUserToSettingsActivity() {
+
+        Intent settingsIntent = new Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 }
