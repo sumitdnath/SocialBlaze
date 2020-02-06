@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import  androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -14,6 +15,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
     private FirebaseUser currentUser;
-
+    private DatabaseReference RootRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -54,10 +61,35 @@ public class MainActivity extends AppCompatActivity {
             SendUserToLoginActivity();
 
         }
+        else
+        {
+            VerifyUserExistence();
+        }
 
         super.onStart();
     }
 
+    private void VerifyUserExistence()
+    {
+        String CurrentUserID = mAuth.getCurrentUser().getUid();
+        RootRef.child("Users").child(CurrentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if ((dataSnapshot.child("name").exists())){
+                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SendUserToSettingsActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     @Override
@@ -98,12 +130,16 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToLoginActivity() {
 
         Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+        finish();
     }
 
     private void SendUserToSettingsActivity() {
 
         Intent settingsIntent = new Intent(MainActivity.this,SettingsActivity.class);
+        settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(settingsIntent);
+        finish();
     }
 }
