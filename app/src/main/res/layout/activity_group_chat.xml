@@ -52,13 +52,15 @@
 
         <EditText
             android:id="@+id/input_group_message"
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Write Your Message...."
-            android:padding="17dp"/>
+            android:padding="17dp"
+
+            />
         <ImageButton
             android:id="@+id/send_messege_button"
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/send_message"/>
 
