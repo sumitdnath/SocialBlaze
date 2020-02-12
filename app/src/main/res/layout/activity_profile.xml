@@ -27,6 +27,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
+        android:textColor="@android:color/background_dark"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="18sp"
@@ -43,6 +44,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
         android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
         android:textAllCaps="false"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -63,8 +65,22 @@
         android:textSize="20sp"
         android:text="Send Message"
         android:textAllCaps="false"
-
-
+        />
+    <Button
+        android:id="@+id/declined_message_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_message_request_button"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginLeft="65dp"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/buttons"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Cancel Chat Request"
+        android:textAllCaps="false"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>

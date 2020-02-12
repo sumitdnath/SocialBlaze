@@ -26,7 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String receiverUserID,senderUserID, Current_State;
     private CircleImageView userProfileImage;
     private TextView userProfileName, userProfileStatus;
-    private Button sendMessageRequestButton;
+    private Button sendMessageRequestButton, DeclinedMessageRequestButton;
 
     private DatabaseReference UserRef, chatRequestRef;
 
@@ -55,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
         userProfileName = (TextView)findViewById(R.id.visit_user_name);
         userProfileStatus = (TextView)findViewById(R.id.visit_profile_status);
         sendMessageRequestButton = (Button)findViewById(R.id.send_message_request_button);
+        DeclinedMessageRequestButton = (Button)findViewById(R.id.declined_message_request_button);
+
         Current_State = "new";
 
 
@@ -118,6 +120,22 @@ public class ProfileActivity extends AppCompatActivity {
                                 Current_State = "request_sent";
                                 sendMessageRequestButton.setText("Cancel Chat Request");
                             }
+                            else if (request_type.equals("received"))
+                            {
+                                Current_State = "request_received";
+                                sendMessageRequestButton.setText("Accept Chat Request");
+
+                                DeclinedMessageRequestButton.setVisibility(View.VISIBLE);
+                                DeclinedMessageRequestButton.setEnabled(true);
+                                DeclinedMessageRequestButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v)
+                                    {
+                                        CancelChatRequests();
+
+                                    }
+                                });
+                            }
 
                         }
 
@@ -177,6 +195,10 @@ public class ProfileActivity extends AppCompatActivity {
                                                 sendMessageRequestButton.setEnabled(true);
                                                 Current_State = "new";
                                                 sendMessageRequestButton.setText("Send Message");
+
+                                                DeclinedMessageRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclinedMessageRequestButton.setEnabled(false);
+
                                             }
 
                                         }
