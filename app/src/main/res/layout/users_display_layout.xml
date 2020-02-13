@@ -60,6 +60,37 @@
                 android:textSize="16sp"
                 />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/requests_accept_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Accept"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:background="@android:color/holo_green_light"
+                    android:visibility="invisible"
+                    />
+                <Button
+                    android:id="@+id/requests_cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Cancel"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:background="@android:color/holo_red_dark"
+                    android:textColor="@android:color/background_light"
+                    android:visibility="invisible"
+                    />
+
+
+            </LinearLayout>
+
        </LinearLayout>
 
     </LinearLayout>
