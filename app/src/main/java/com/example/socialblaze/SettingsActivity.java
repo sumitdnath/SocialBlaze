@@ -3,6 +3,7 @@ package com.example.socialblaze;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import  androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -48,6 +49,9 @@ public class SettingsActivity extends AppCompatActivity {
     private static final int GalleryPick = 1;
     private StorageReference UserProfileImagesRef;
     private ProgressDialog loadingBar;
+
+    private Toolbar SettingsToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,6 +105,14 @@ public class SettingsActivity extends AppCompatActivity {
         userStatus = (EditText) findViewById(R.id.set_profile_status);
         userProfileImage = (CircleImageView) findViewById(R.id.set_profile_image);
         loadingBar = new ProgressDialog(this);
+
+
+        SettingsToolbar = (Toolbar) findViewById(R.id.settings_toolbar);
+        setSupportActionBar(SettingsToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setTitle("Account Settings");
+
     }
 
     @Override
