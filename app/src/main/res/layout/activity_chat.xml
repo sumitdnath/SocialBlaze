@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/darker_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
@@ -42,7 +43,7 @@
             android:padding="15dp"
             />
         <ImageButton
-            android:id="@+id/send_messege_btn"
+            android:id="@+id/send_messege_bttn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/send_message"/>
