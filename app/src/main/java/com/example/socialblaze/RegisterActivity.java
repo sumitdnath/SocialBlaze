@@ -19,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView AlreadyHaveAccountLink;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
-    private DatabaseReference rootRef;
+    private DatabaseReference RootRef;
 
 
 
@@ -40,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        rootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
         InitializeFields();
 
@@ -86,10 +87,16 @@ public class RegisterActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful())
+                            {
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                rootRef.child("Users").child(currentUserID).setValue("");
+                                RootRef.child("Users").child(currentUserID).setValue("");
+
+                                RootRef.child("Users").child(currentUserID).child("device_token")
+                                        .setValue(deviceToken);
+
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account Created Successfuly..", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
