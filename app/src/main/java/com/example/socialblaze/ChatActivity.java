@@ -25,9 +25,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,17 +57,21 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView userMessagesList;
 
 
+    private String saveCurrentTime, saveCurrentDate;
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
@@ -73,8 +80,10 @@ public class ChatActivity extends AppCompatActivity {
 
         IntializeControllers();
 
+
         userName.setText(messageReceiverName);
         Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
+
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +93,10 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+        DisplayLastSeen();
     }
+
 
 
 
@@ -115,7 +127,52 @@ public class ChatActivity extends AppCompatActivity {
         userMessagesList.setAdapter(messageAdapter);
 
 
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
     }
+
+
+
+    private void DisplayLastSeen()
+    {
+        RootRef.child("Users").child(messageReceiverID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        if (dataSnapshot.child("userState").hasChild("state"))
+                        {
+                            String state = dataSnapshot.child("userState").child("state").getValue().toString();
+                            String date = dataSnapshot.child("userState").child("date").getValue().toString();
+                            String time = dataSnapshot.child("userState").child("time").getValue().toString();
+
+                            if (state.equals("online"))
+                            {
+                                userLastSeen.setText("online");
+                            }
+                            else if (state.equals("offline"))
+                            {
+                                userLastSeen.setText("Last Seen: " + date + " " + time);
+                            }
+                        }
+                        else
+                        {
+                            userLastSeen.setText("offline");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
 
     @Override
     protected void onStart()
@@ -159,6 +216,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+
     private void SendMessage()
     {
         String messageText = MessageInputText.getText().toString();
@@ -183,12 +241,12 @@ public class ChatActivity extends AppCompatActivity {
             messageTextBody.put("from", messageSenderID);
             messageTextBody.put("to", messageReceiverID);
             messageTextBody.put("messageID", messagePushID);
-
+            messageTextBody.put("time", saveCurrentTime);
+            messageTextBody.put("date", saveCurrentDate);
 
             Map messageBodyDetails = new HashMap();
             messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
             messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
-
 
             RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override

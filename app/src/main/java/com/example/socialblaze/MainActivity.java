@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager myViewPager;
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
-    private FirebaseUser currentUser;
     private DatabaseReference RootRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         RootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         currentUserID = mAuth.getCurrentUser().getUid();
 
 
@@ -69,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onStart();
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
         if (currentUser == null)
         {
             SendUserToLoginActivity();
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onStop();
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
         if (currentUser != null)
         {
             updateUserStatus("offline");
@@ -96,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
         if (currentUser != null)
         {
@@ -141,8 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
          if (item.getItemId() == R.id.main_logout_option){
 
-            mAuth.signOut();
-            SendUserToLoginActivity();
+             updateUserStatus("offline");
+
+             mAuth.signOut();
+             SendUserToLoginActivity();
 
          }
 
