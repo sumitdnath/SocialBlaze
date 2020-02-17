@@ -24,29 +24,39 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>
 {
-
     private List<Messages> userMessagesList;
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
+
 
     public MessageAdapter (List<Messages> userMessagesList)
     {
         this.userMessagesList = userMessagesList;
     }
 
+
+
     public class MessageViewHolder extends RecyclerView.ViewHolder
     {
         public TextView senderMessageText, receiverMessageText;
         public CircleImageView receiverProfileImage;
+        public ImageView messageSenderPicture, messageReceiverPicture;
 
-        public MessageViewHolder(@NonNull View itemView) {
+
+        public MessageViewHolder(@NonNull View itemView)
+        {
             super(itemView);
 
             senderMessageText = (TextView) itemView.findViewById(R.id.sender_messsage_text);
             receiverMessageText = (TextView) itemView.findViewById(R.id.receiver_message_text);
             receiverProfileImage = (CircleImageView) itemView.findViewById(R.id.message_profile_image);
+            messageReceiverPicture = itemView.findViewById(R.id.message_receiver_image_view);
+            messageSenderPicture = itemView.findViewById(R.id.message_sender_image_view);
         }
     }
+
+
+
 
     @NonNull
     @Override
@@ -59,6 +69,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         return new MessageViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, int i)
@@ -89,35 +101,39 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             }
         });
 
+
+
+
+
+        messageViewHolder.receiverMessageText.setVisibility(View.GONE);
+        messageViewHolder.receiverProfileImage.setVisibility(View.GONE);
+        messageViewHolder.senderMessageText.setVisibility(View.GONE);
+        messageViewHolder.messageSenderPicture.setVisibility(View.GONE);
+        messageViewHolder.messageReceiverPicture.setVisibility(View.GONE);
+
+
         if (fromMessageType.equals("text"))
         {
-
-            messageViewHolder.receiverMessageText.setVisibility(View.INVISIBLE);
-            messageViewHolder.receiverProfileImage.setVisibility(View.INVISIBLE);
-            messageViewHolder.senderMessageText.setVisibility(View.INVISIBLE);
-
-
             if (fromUserID.equals(messageSenderId))
-
             {
                 messageViewHolder.senderMessageText.setVisibility(View.VISIBLE);
+
                 messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_message_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.BLACK);
-                messageViewHolder.senderMessageText.setText(messages.getMessage());
-
+                messageViewHolder.senderMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
             }
             else
             {
-
                 messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
                 messageViewHolder.receiverMessageText.setVisibility(View.VISIBLE);
 
                 messageViewHolder.receiverMessageText.setBackgroundResource(R.drawable.receiver_message_layout);
                 messageViewHolder.receiverMessageText.setTextColor(Color.BLACK);
-                messageViewHolder.receiverMessageText.setText(messages.getMessage());
+                messageViewHolder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
             }
         }
     }
+
 
 
 

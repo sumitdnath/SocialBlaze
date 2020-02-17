@@ -117,7 +117,8 @@ public class ChatActivity extends AppCompatActivity {
         userLastSeen = (TextView) findViewById(R.id.custom_user_last_seen);
         userImage = (CircleImageView) findViewById(R.id.custom_profile_image);
 
-        SendMessageButton = (ImageButton) findViewById(R.id.send_messege_bttn);
+        SendMessageButton = (ImageButton) findViewById(R.id.send_message_bttn);
+        SendFilesButton = (ImageButton) findViewById(R.id.send_files_btn);
         MessageInputText = (EditText) findViewById(R.id.input_messages);
 
         messageAdapter = new MessageAdapter(messagesList);
