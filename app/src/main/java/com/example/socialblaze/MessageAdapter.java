@@ -1,6 +1,8 @@
 package com.example.socialblaze;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,10 +75,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
     @Override
-    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, int i)
+    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, final int position)
     {
         String messageSenderId = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessagesList.get(i);
+        Messages messages = userMessagesList.get(position);
 
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();
@@ -146,6 +148,33 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     Picasso.get().load(messages.getMessage()).into(messageViewHolder.messageReceiverPicture);
                 }
         }
+        else
+            {
+                if (fromUserID.equals(messageSenderId))
+                {
+                    messageViewHolder.messageSenderPicture.setVisibility(View.VISIBLE);
+
+                    messageViewHolder.messageSenderPicture.setBackgroundResource(R.drawable.file);
+
+                    messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                            messageViewHolder.itemView.getContext().startActivity(intent);
+                        }
+                    });
+                }
+                else
+                {
+                    messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
+                    messageViewHolder.messageReceiverPicture.setVisibility(View.VISIBLE);
+
+                    messageViewHolder.messageReceiverPicture.setBackgroundResource(R.drawable.file);
+
+                }
+
+            }
 
     }
 

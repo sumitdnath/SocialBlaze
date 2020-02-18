@@ -42,29 +42,47 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/myLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
 
-        <EditText
-            android:id="@+id/input_group_message"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:hint="Write Your Message...."
-            android:padding="17dp"
-
-            />
-        <ImageButton
-            android:id="@+id/send_messege_button"
+        <RelativeLayout
+            android:id="@+id/myLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/send_message"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/background_light"
+            android:orientation="horizontal"
+            >
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/send_files_btn"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:src="@drawable/send_files"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@android:color/white"
+                />
+
+            <EditText
+                android:id="@+id/input_group_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="type message here..."
+                android:padding="15dp"
+                android:maxLines="5"
+                android:layout_toEndOf="@+id/send_files_btn"
+                android:layout_toStartOf="@+id/send_messege_button"
+                />
+            <ImageButton
+                android:id="@+id/send_messege_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/send_message"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@android:color/white"
+                />
+
+        </RelativeLayout>
+
 
 
 </RelativeLayout>
