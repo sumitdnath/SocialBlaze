@@ -46,11 +46,28 @@ public class MainActivity extends AppCompatActivity {
 
         RootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        currentUserID = mAuth.getCurrentUser().getUid();
+
+        currentUserID = null;
+        try {
+            currentUserID = mAuth.getCurrentUser().getUid();
+        }
+        catch (NullPointerException ignored)
+        {
+
+        }
 
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mToolbar);
+
+        try {
+
+            setSupportActionBar(mToolbar);
+        }
+        catch (NullPointerException ignored)
+        {
+
+        }
+
         getSupportActionBar().setTitle("SocialBlaze");
 
         myViewPager = (ViewPager)findViewById(R.id.main_tabs_pager);
@@ -68,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
 
         if (currentUser == null)
@@ -118,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if ((dataSnapshot.child("name").exists())){
-                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     SendUserToSettingsActivity();
