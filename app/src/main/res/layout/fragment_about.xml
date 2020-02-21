@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutFragment">
+
+    <TextView
+        android:id="@+id/set_creator_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/inputs"
+        android:padding="6dp"
+        android:text="Created By"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/set_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_creator_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:text="Sumit Debnath"
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:padding="6dp"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/set_user_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_user_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:text="Student of CE, Aditya Institute of Technology, Delhi"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:padding="6dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/set_user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_user_about"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:text="Email: sumitdebnath913@gmail.com"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:padding="6dp"
+        android:layout_marginTop="1dp"
+
+        />
+
+    <TextView
+        android:id="@+id/set_about"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_user_email"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/inputs"
+        android:padding="6dp"
+        android:text="About The App "
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/set_about_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_about"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="13dp"
+        android:padding="6dp"
+        android:text="Social Blaze is a instant messaging application that allows android smartphone users to exchange text, image, pdf and docx messages for free. Social Blaze is especially has unlimited text messaging. In addition to basic messaging, Social Blaze also provides group chat and image sharing options. "
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
