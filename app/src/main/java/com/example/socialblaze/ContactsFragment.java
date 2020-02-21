@@ -143,7 +143,15 @@ public class ContactsFragment extends Fragment {
             public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
             {
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
-                ContactsViewHolder viewHolder = new ContactsViewHolder(view);
+
+                ContactsViewHolder viewHolder = null;
+                try {
+                     viewHolder = new ContactsViewHolder(view);
+                }
+                catch (NullPointerException ignored)
+                {
+
+                }
                 return viewHolder;
             }
         };

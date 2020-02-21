@@ -325,7 +325,16 @@ public class RequestsFragment extends Fragment {
                     @Override
                     public RequestsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
                     {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+
+                        View view = null;
+                        try {
+                            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                        }
+                        catch (NullPointerException ignored)
+                        {
+
+                        }
+
                         RequestsViewHolder holder = new RequestsViewHolder(view);
                         return holder;
                     }
